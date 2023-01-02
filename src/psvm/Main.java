@@ -2,6 +2,8 @@ package psvm;
 
 import com.main.*;
 
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
 
@@ -25,12 +27,17 @@ public class Main {
 
         Product.SetProductsId();
         Product.DisplayProducts();
-        ShoppingCart.addToCart(1);
-        ShoppingCart.addToCart(1);
-        ShoppingCart.displayProductsInCart();
-        Product.DisplayProducts();
         while(notDoneShopping) {
+            Scanner firstInput = new Scanner(System.in);
+            System.out.println("To deposit money, type: d");
+            System.out.println("To add product to your cart type: a");
 
+            String action = firstInput.nextLine();
+            if(action.equals("d")) {
+                System.out.println("Please input the amount you want to deposit");
+                action = firstInput.nextLine();
+                User.deposit(Double.parseDouble(action)); // IKKE FÆRDIG!! TODO
+            }
         }
     }
 }

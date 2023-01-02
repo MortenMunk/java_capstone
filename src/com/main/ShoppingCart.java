@@ -91,6 +91,14 @@ public class ShoppingCart {
             System.out.println("PRODUCT NOT FOUND IN CART OR SHOP");
         }
     }
+
+    public static double getTotalPrice() {
+        double totalPrice = 0;
+        for (ShoppingCart cartItem : cartItems) {
+            totalPrice += cartItem.amount * cartItem.amount;
+        }
+        return totalPrice;
+    }
 }
 
 
