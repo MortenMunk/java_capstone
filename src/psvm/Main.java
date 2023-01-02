@@ -27,9 +27,8 @@ public class Main {
         Product.DisplayProducts();
         ShoppingCart.addToCart(1);
         ShoppingCart.addToCart(1);
-        ShoppingCart.removeFromCart(1);
-        ShoppingCart.removeFromCart(1);
         ShoppingCart.displayProductsInCart();
+        Product.DisplayProducts();
         while(notDoneShopping) {
 
         }

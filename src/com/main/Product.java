@@ -16,6 +16,14 @@ public abstract class Product {
 
     public static ArrayList<Product> products = new ArrayList<>();
 
+    public Product(String name, int stockLeft, double price, Category categ) {
+        this.name = name;
+        this.stockLeft = stockLeft;
+        this.price = price;
+        this.category = categ;
+        products.add(this);
+    }
+
     public String getName() {
         return name;
     }
@@ -57,14 +65,6 @@ public abstract class Product {
         return category;
     }
 
-    public Product(String name, int stockLeft, double price, Category categ) {
-        this.name = name;
-        this.stockLeft = stockLeft;
-        this.price = price;
-        this.category = categ;
-        products.add(this);
-    }
-
     public static void SetProductsId() {
         int i = 1;
         for (Product product : products) {
@@ -75,6 +75,10 @@ public abstract class Product {
 
     public void removeOneStock() {
         stockLeft -= 1;
+    }
+
+    public void addOneStock() {
+        stockLeft += 1;
     }
 
     public static void DisplayProducts() {
