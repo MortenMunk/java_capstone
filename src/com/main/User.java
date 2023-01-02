@@ -1,6 +1,6 @@
 package com.main;
 
-public class User {
+public class User implements Transaction {
     private Double balance;
     private String name;
 
@@ -36,7 +36,9 @@ public class User {
     public void setName(String name) {
         this.name = name;
     }
+    
 
+    @Override
     public double deposit(double amount) {
         if(amount <= 0) {
             String msg = "Deposit amount must be positive";
@@ -46,7 +48,7 @@ public class User {
         }
         return balance;
     }
-
+    @Override
     public double billAmount(double amount) {
         if(amount <= 0) {
             String msg = "Billing amount must be greater than zero";

@@ -8,7 +8,7 @@ public class Main {
     public static void main(String[] args) {
 
         boolean notDoneShopping = true;
-
+        User user = new User("Morten", 0);
         // BEVERAGE LIST
         Beverages cola = new Beverages("Cola", 15, 15.99, Product.Category.BEVERAGES);
         Beverages fanta = new Beverages("Fanta", 8, 13.99, Product.Category.BEVERAGES);
@@ -33,10 +33,11 @@ public class Main {
             System.out.println("To add product to your cart type: a");
 
             String action = firstInput.nextLine();
+            System.out.println(user.getBalance());
             if(action.equals("d")) {
                 System.out.println("Please input the amount you want to deposit");
                 action = firstInput.nextLine();
-                User.deposit(Double.parseDouble(action)); // IKKE FÆRDIG!! TODO
+                user.deposit(Double.parseDouble(action)); // IKKE FÆRDIG!! TODO
             }
         }
     }
