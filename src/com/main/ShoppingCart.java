@@ -39,7 +39,7 @@ public class ShoppingCart {
             if (cartItem.amount < 1) {
                 iterator.remove();
             } else {
-                System.out.println("#" + cartItem.cartID + ". " + cartItem.name + " --- Amount: " + cartItem.amount + " --- Price pr. item: " + cartItem.price + " --- Total: " + cartItem.amount * cartItem.price + " DKK");
+                System.out.println("#" + cartItem.cartID + ". " + cartItem.name + " --- Amount: " + cartItem.amount + " --- Price pr. item: " + cartItem.price + " DKK" + " --- Total: " + cartItem.amount * cartItem.price + " DKK");
             }
         }
     }

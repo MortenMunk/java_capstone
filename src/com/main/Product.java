@@ -10,7 +10,7 @@ public abstract class Product {
     private double price;
 
     public enum Category {
-        EDIBLES, CUTLERY, BEVERAGES, UNASSIGNED
+        EDIBLES, CUTLERY, BEVERAGES,
     }
 
     public static ArrayList<Product> products = new ArrayList<>();
@@ -95,10 +95,5 @@ public abstract class Product {
             }
         }
         System.out.println("--------------------");
-        System.out.println("Type the following to perform action:");
-        System.out.println("add <ID>: to add a product to your cart");
-        System.out.println("remove <ID>: to remove a product from your cart");
-        System.out.println("clear: to remove all items from your cart");
-        System.out.println("buy: to complete your purchase");
     }
 }

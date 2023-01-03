@@ -26,11 +26,17 @@ public class Main {
         Edibles salad = new Edibles("Salad", 20, 28);
 
         Product.SetProductsId();
-        Product.DisplayProducts();
         while(notDoneShopping) {
+            Product.DisplayProducts();
+            ShoppingCart.displayProductsInCart();
+            System.out.println("Balance: " + user.getBalance() + " DKK");
+            System.out.println("--------------------");
             Scanner firstInput = new Scanner(System.in);
             System.out.println("To deposit money, type: d");
-            System.out.println("To add product to your cart type: a");
+            System.out.println("To add product to your cart, type: a");
+            System.out.println("To remove product from your cart, type: r");
+            System.out.println("To complete purchase, type: p");
+            System.out.println("To cancel order, type: c");
 
             String action = firstInput.nextLine();
             System.out.println(user.getBalance());
@@ -38,7 +44,24 @@ public class Main {
                 System.out.println("Please input the amount you want to deposit");
                 action = firstInput.nextLine();
                 user.deposit(Double.parseDouble(action));
-                System.out.println(user.getBalance());// IKKE FÆRDIG!! TODO
+            } else if (action.equals("a")) {
+                System.out.println("Please input the ID of the product, you want to add");
+                action = firstInput.nextLine();
+                ShoppingCart.addToCart(Integer.parseInt(action));
+            } else if (action.equals("r")) {
+                System.out.println("Please input the ID of the product, you want to remove");
+                action = firstInput.nextLine();
+                ShoppingCart.removeFromCart(Integer.parseInt(action));
+            } else if (action.equals("p")) {
+                System.out.println("Purchase completed!");
+                user.billAmount(ShoppingCart.getTotalPrice());
+                System.out.println("Total billing amount: " + ShoppingCart.getTotalPrice() + " DKK");
+                notDoneShopping = false;
+            } else if (action.equals("c")) {
+                System.out.println("Order cancelled!");
+                notDoneShopping = false;
+            } else {
+                System.out.println("Incorrect input, try again.");
             }
         }
     }
