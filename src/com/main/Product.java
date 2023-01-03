@@ -10,16 +10,16 @@ public abstract class Product {
     private double price;
 
     public enum Category {
-        EDIBLES, CUTLERY, BEVERAGES
+        EDIBLES, CUTLERY, BEVERAGES, UNASSIGNED
     }
 
     public static ArrayList<Product> products = new ArrayList<>();
 
-    public Product(String name, int stockLeft, double price, Category categ) {
+    public Product(String name, int stockLeft, double price, Category category) {
         this.name = name;
         this.stockLeft = stockLeft;
         this.price = price;
-        this.category = categ;
+        this.category = category;
         products.add(this);
     }
 

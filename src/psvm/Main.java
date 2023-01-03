@@ -10,20 +10,20 @@ public class Main {
         boolean notDoneShopping = true;
         User user = new User("Morten", 0);
         // BEVERAGE LIST
-        Beverages cola = new Beverages("Cola", 15, 15.99, Product.Category.BEVERAGES);
-        Beverages fanta = new Beverages("Fanta", 8, 13.99, Product.Category.BEVERAGES);
-        Beverages sprite = new Beverages("Sprite", 20, 15.99, Product.Category.BEVERAGES);
-        Beverages sevenUp = new Beverages("7-Up", 0, 10.99, Product.Category.BEVERAGES);
+        Beverages cola = new Beverages("Cola", 15, 15.99);
+        Beverages fanta = new Beverages("Fanta", 8, 13.99);
+        Beverages sprite = new Beverages("Sprite", 20, 15.99);
+        Beverages sevenUp = new Beverages("7-Up", 0, 10.99);
 
         // CUTLERY LIST
-        Cutlery spoon = new Cutlery("Spoon", 10, 0.99, Product.Category.CUTLERY);
-        Cutlery fork = new Cutlery("Fork", 16, 0.99, Product.Category.CUTLERY);
-        Cutlery napkin = new Cutlery("Napkin", 59, 0, Product.Category.CUTLERY);
+        Cutlery spoon = new Cutlery("Spoon", 10, 0.99);
+        Cutlery fork = new Cutlery("Fork", 16, 0.99);
+        Cutlery napkin = new Cutlery("Napkin", 59, 0);
 
         // EDIBLE LIST
-        Edibles pizza = new Edibles("Pizza", 5, 18, Product.Category.EDIBLES);
-        Edibles sandwich = new Edibles("Sandwich", 10, 30, Product.Category.EDIBLES);
-        Edibles salad = new Edibles("Salad", 20, 28, Product.Category.EDIBLES);
+        Edibles pizza = new Edibles("Pizza", 5, 18);
+        Edibles sandwich = new Edibles("Sandwich", 10, 30);
+        Edibles salad = new Edibles("Salad", 20, 28);
 
         Product.SetProductsId();
         Product.DisplayProducts();
@@ -37,7 +37,8 @@ public class Main {
             if(action.equals("d")) {
                 System.out.println("Please input the amount you want to deposit");
                 action = firstInput.nextLine();
-                user.deposit(Double.parseDouble(action)); // IKKE FÆRDIG!! TODO
+                user.deposit(Double.parseDouble(action));
+                System.out.println(user.getBalance());// IKKE FÆRDIG!! TODO
             }
         }
     }

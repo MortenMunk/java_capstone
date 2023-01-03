@@ -7,8 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class EdiblesTest {
     @Test
     void TestEdiblesConstructor() {
-        Edibles edibleTest = new Edibles(1,"Pizza", 2, 18, Category.EDIBLES);
-        assertEquals(1, edibleTest.getId());
+        Edibles edibleTest = new Edibles("Pizza", 2, 18);
         assertEquals("Pizza", edibleTest.getName());
         assertEquals(2, edibleTest.getStockLeft());
         assertEquals(18, edibleTest.getPrice());

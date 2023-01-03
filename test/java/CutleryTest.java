@@ -7,8 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class CutleryTest {
     @Test
     void TestCutleryConstructor() {
-        Cutlery cutleryTest = new Cutlery(1,"Plastic spoon", 5, 4, Category.CUTLERY);
-        assertEquals(1, cutleryTest.getId());
+        Cutlery cutleryTest = new Cutlery("Plastic spoon", 5, 4);
         assertEquals("Plastic spoon", cutleryTest.getName());
         assertEquals(5, cutleryTest.getStockLeft());
         assertEquals(4, cutleryTest.getPrice());

@@ -5,13 +5,11 @@ public class User implements Transaction {
     private String name;
 
     public User(String name, double balance) {
-        super();
         this.balance = balance;
         this.name = name;
     }
 
     public User(String name) {
-        super();
         this.name = name;
         this.balance = 0.0;
     }
@@ -39,14 +37,13 @@ public class User implements Transaction {
     
 
     @Override
-    public double deposit(double amount) {
+    public void deposit(double amount) {
         if(amount <= 0) {
             String msg = "Deposit amount must be positive";
             throw new IllegalArgumentException(msg);
         } else {
             setBalance(balance + amount);
         }
-        return balance;
     }
     @Override
     public double billAmount(double amount) {
