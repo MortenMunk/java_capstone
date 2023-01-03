@@ -8,7 +8,6 @@ public abstract class Product {
     private final String name;
     private int stockLeft;
     private double price;
-    private boolean inStock;
 
     public enum Category {
         EDIBLES, CUTLERY, BEVERAGES
@@ -55,9 +54,9 @@ public abstract class Product {
 
     public boolean isInStock() {
         if (this.stockLeft <= 0) {
-            return this.inStock = false;
+            return false;
         } else {
-            return this.inStock = true;
+            return true;
         }
     }
 
