@@ -12,11 +12,7 @@ public class Main {
         System.out.println();
         System.out.println("--- YOUR SHOPPING CART ---");
         for (CartItem item : itemList) {
-            if (item.getAmount() < 1) {
-                itemList.remove(item);
-            } else {
-                System.out.println("#" + item.getProduct().getId() + ". " + item.getProduct().getName() + " --- Amount: " + item.getAmount() + " --- Price pr. item: " + item.getProduct().getPrice() + " DKK" + " --- Total: " + item.getAmount() * item.getProduct().getPrice() + " DKK");
-            }
+            System.out.println("#" + item.getProduct().getId() + ". " + item.getProduct().getName() + " --- Amount: " + item.getAmount() + " --- Price pr. item: " + item.getProduct().getPrice() + " DKK" + " --- Total: " + item.getAmount() * item.getProduct().getPrice() + " DKK");
         }
     }
 
