@@ -1,5 +1,7 @@
 package com.main;
 
+import com.main.exceptions.StockCannotBeNegativeException;
+
 import java.util.ArrayList;
 
 public abstract class Product {
@@ -43,8 +45,7 @@ public abstract class Product {
         if (stockLeft >= 0) {
             this.stockLeft = stockLeft;
         } else {
-            String msg = "Stock cannot be negative";
-            throw new IllegalArgumentException(msg);
+            throw new StockCannotBeNegativeException();
         }
     }
 
@@ -81,6 +82,7 @@ public abstract class Product {
     }
 
     public static void DisplayProducts() {
+        System.out.println("--------------------");
         for (Product product : products) {
             if (product.isInStock()) {
                 System.out.print("#" + product.id + ". ");

@@ -1,5 +1,9 @@
 package com.main;
 
+import com.main.exceptions.CannotRemoveFromCartWhenAmountZero;
+import com.main.exceptions.ProductNotFoundException;
+import com.main.exceptions.ProductNotInStockException;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -47,21 +51,26 @@ public class ShoppingCart {
     public static void addToCart(int idToAdd) {
         for (Product product : products) {
             if (product.getId() == idToAdd && !IsItemAlreadyInCart(idToAdd)) {
-                new ShoppingCart(product.getId(), product.getName(), 1, product.getPrice());
-                product.removeOneStock();
-                return;
-
+                if(product.isInStock()) {
+                    new ShoppingCart(product.getId(), product.getName(), 1, product.getPrice());
+                    product.removeOneStock();
+                    return;
+                } else if(!product.isInStock()) {
+                    throw new ProductNotInStockException(idToAdd);
+                }
             } else if (product.getId() == idToAdd && IsItemAlreadyInCart(idToAdd)) {
                 for (ShoppingCart cartItem : cartItems) {
-                    if (cartItem.cartID == product.getId()) {
+                    if (cartItem.cartID == product.getId() && product.isInStock()) {
+                        product.removeOneStock();
                         cartItem.amount += 1;
                         return;
+                    } else if (cartItem.cartID == product.getId() && !product.isInStock()) {
+                        throw new ProductNotInStockException(idToAdd);
                     }
                 }
-                product.removeOneStock();
             }
         }
-            System.out.println("PRODUCT NOT FOUND");
+        throw new ProductNotFoundException(idToAdd);
     }
 
     public static void removeFromCart(int idToAdd) {
@@ -69,8 +78,7 @@ public class ShoppingCart {
             if (product.getId() == idToAdd && IsItemAlreadyInCart(idToAdd)) {
                 for (ShoppingCart cartItem : cartItems) {
                     if (cartItem.cartID == idToAdd && cartItem.amount < 1) {
-                        System.out.println("AMOUNT CANNOT BE LESS THAN 0");
-                        return;
+                        throw new CannotRemoveFromCartWhenAmountZero(idToAdd);
                     } else if (cartItem.cartID == idToAdd && cartItem.amount > 0) {
                         cartItem.amount -= 1;
                         product.addOneStock();
@@ -79,7 +87,7 @@ public class ShoppingCart {
                 }
             }
         }
-        System.out.println("PRODUCT NOT FOUND IN CART OR SHOP");
+        throw new ProductNotFoundException(idToAdd);
     }
 
     public static double getTotalPrice() {

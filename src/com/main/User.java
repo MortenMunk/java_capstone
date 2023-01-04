@@ -1,6 +1,11 @@
 package com.main;
 
-public class User implements Transaction {
+import com.main.exceptions.BalanceCannotBeNegativeException;
+import com.main.exceptions.BillingAmountCannotExceedBalanceException;
+import com.main.exceptions.CannotBillWithNoChargeException;
+import com.main.exceptions.DepositCannotBeNegativeException;
+
+public class User implements Transaction{
     private Double balance;
     private String name;
 
@@ -22,8 +27,7 @@ public class User implements Transaction {
         if(balance >= 0){
             this.balance = balance;
         } else {
-            String msg = "Balance must be positive";
-            throw new IllegalArgumentException(msg);
+            throw new BalanceCannotBeNegativeException(balance);
         }
     }
 
@@ -37,22 +41,19 @@ public class User implements Transaction {
     
 
     @Override
-    public void deposit(double amount) {
+    public void deposit(double amount){
         if(amount <= 0) {
-            String msg = "Deposit amount must be positive";
-            throw new IllegalArgumentException(msg);
+            throw new DepositCannotBeNegativeException(amount);
         } else {
             setBalance(balance + amount);
         }
     }
     @Override
-    public double billAmount(double amount) {
+    public double billAmount(double amount){
         if(amount <= 0) {
-            String msg = "Billing amount must be greater than zero";
-            throw new IllegalArgumentException(msg);
+            throw new CannotBillWithNoChargeException();
         } else if(amount > balance) {
-            String msg = "Billing amount, must not exceed balance";
-            throw new IllegalArgumentException(msg);
+            throw new BillingAmountCannotExceedBalanceException(balance, amount);
         }
         return balance -= amount;
     }
