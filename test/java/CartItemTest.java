@@ -34,6 +34,7 @@ public class CartItemTest {
 
     @Test
     void TestGetProducts() {
+
         assertSame(cartItemTest.getProduct(), cartItemTestDupe.getProduct());
     }
 }
