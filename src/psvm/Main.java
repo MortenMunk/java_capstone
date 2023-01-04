@@ -41,90 +41,95 @@ public class Main {
 
             String action = firstInput.nextLine();
             System.out.println(user.getBalance());
-            if(action.equals("d")) {
-                System.out.println("Please input the amount you want to deposit");
-                action = firstInput.nextLine();
-                try {
-                    user.deposit(Double.parseDouble(action));
-                } catch (DepositCannotBeNegativeException e) {
-                    System.out.println();
-                    System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                    System.out.println("Deposit amount cannot be negative! " + e.getDeposit() + " is a negative amount!");
-                    System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                    System.out.println();
+            switch (action) {
+                case "d" -> {
+                    System.out.println("Please input the amount you want to deposit");
+                    action = firstInput.nextLine();
+                    try {
+                        user.deposit(Double.parseDouble(action));
+                    } catch (DepositCannotBeNegativeException e) {
+                        System.out.println();
+                        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                        System.out.println("Deposit amount cannot be negative! " + e.getDeposit() + " is a negative amount!");
+                        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                        System.out.println();
+                    }
                 }
-            } else if (action.equals("a")) {
-                System.out.println("Please input the ID of the product, you want to add");
-                action = firstInput.nextLine();
-                try {
-                    ShoppingCart.addToCart(Integer.parseInt(action));
-                } catch (ProductNotFoundException e) {
-                    System.out.println();
-                    System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                    System.out.println("Product with ID: " + e.getID() + " was not found in shop");
-                    System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                    System.out.println();
-                } catch (ProductNotInStockException e) {
-                    System.out.println();
-                    System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                    System.out.println("Cannot add products that are not in stock! Product with ID: " + e.getID() + " is not in stock!");
-                    System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                    System.out.println();
+                case "a" -> {
+                    System.out.println("Please input the ID of the product, you want to add");
+                    action = firstInput.nextLine();
+                    try {
+                        ShoppingCart.addToCart(Integer.parseInt(action));
+                    } catch (ProductNotFoundException e) {
+                        System.out.println();
+                        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                        System.out.println("Product with ID: " + e.getID() + " was not found in shop");
+                        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                        System.out.println();
+                    } catch (ProductNotInStockException e) {
+                        System.out.println();
+                        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                        System.out.println("Cannot add products that are not in stock! Product with ID: " + e.getID() + " is not in stock!");
+                        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                        System.out.println();
+                    }
                 }
-            } else if (action.equals("r")) {
-                System.out.println("Please input the ID of the product, you want to remove");
-                action = firstInput.nextLine();
-                try {
-                    ShoppingCart.removeFromCart(Integer.parseInt(action));
-                } catch (CannotRemoveFromCartWhenAmountZero e) {
-                    System.out.println();
-                    System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                    System.out.println("Cannot remove product with ID: " + e.getID() + "As the amount cannot be zero or less");
-                    System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                    System.out.println();
-                } catch (ProductNotFoundException e) {
-                    System.out.println();
-                    System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                    System.out.println("Product with ID: " + e.getID() + " was not found in shop or in cart!");
-                    System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                    System.out.println();
+                case "r" -> {
+                    System.out.println("Please input the ID of the product, you want to remove");
+                    action = firstInput.nextLine();
+                    try {
+                        ShoppingCart.removeFromCart(Integer.parseInt(action));
+                    } catch (CannotRemoveFromCartWhenAmountZero e) {
+                        System.out.println();
+                        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                        System.out.println("Cannot remove product with ID: " + e.getID() + "As the amount cannot be zero or less");
+                        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                        System.out.println();
+                    } catch (ProductNotFoundException e) {
+                        System.out.println();
+                        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                        System.out.println("Product with ID: " + e.getID() + " was not found in shop or in cart!");
+                        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                        System.out.println();
+                    }
                 }
-            } else if (action.equals("p")) {
-                System.out.println("Purchase completed!");
-                try {
-                    user.billAmount(ShoppingCart.getTotalPrice());
-                    System.out.println("Total billing amount: " + ShoppingCart.getTotalPrice() + " DKK");
+                case "p" -> {
+                    System.out.println("Purchase completed!");
+                    try {
+                        user.billAmount(ShoppingCart.getTotalPrice());
+                        System.out.println("Total billing amount: " + ShoppingCart.getTotalPrice() + " DKK");
+                        notDoneShopping = false;
+                    } catch (BalanceCannotBeNegativeException e) {
+                        System.out.println();
+                        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                        System.out.println("Balance cannot be negative, " + e.getBalance() + " DKK will make the balance negative!");
+                        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                        System.out.println();
+                    } catch (DepositCannotBeNegativeException e) {
+                        System.out.println();
+                        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                        System.out.println("Deposit input cannot be negative! " + e.getDeposit() + " DKK is a negative value!");
+                        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                        System.out.println();
+                    } catch (CannotBillWithNoChargeException e) {
+                        System.out.println();
+                        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                        System.out.println("Cannot bill, without any charges!");
+                        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                        System.out.println();
+                    } catch (BillingAmountCannotExceedBalanceException e) {
+                        System.out.println();
+                        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                        System.out.println("Billing amount cannot exceed balance! " + e.getBillAmount() + "DKK is more than " + e.getBalance() + " DKK");
+                        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                        System.out.println();
+                    }
+                }
+                case "c" -> {
+                    System.out.println("Order cancelled!");
                     notDoneShopping = false;
-                } catch (BalanceCannotBeNegativeException e) {
-                    System.out.println();
-                    System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                    System.out.println("Balance cannot be negative, " + e.getBalance() + " DKK will make the balance negative!");
-                    System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                    System.out.println();
-                } catch (DepositCannotBeNegativeException e) {
-                    System.out.println();
-                    System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                    System.out.println("Deposit input cannot be negative! " + e.getDeposit() + " DKK is a negative value!");
-                    System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                    System.out.println();
-                } catch (CannotBillWithNoChargeException e) {
-                    System.out.println();
-                    System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                    System.out.println("Cannot bill, without any charges!");
-                    System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                    System.out.println();
-                } catch (BillingAmountCannotExceedBalanceException e) {
-                    System.out.println();
-                    System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                    System.out.println("Billing amount cannot exceed balance! " + e.getBillAmount() + "DKK is more than " + e.getBalance() + " DKK");
-                    System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-                    System.out.println();
                 }
-            } else if (action.equals("c")) {
-                System.out.println("Order cancelled!");
-                notDoneShopping = false;
-            } else {
-                System.out.println("Incorrect input, try again.");
+                default -> System.out.println("Incorrect input, try again.");
             }
         }
     }
