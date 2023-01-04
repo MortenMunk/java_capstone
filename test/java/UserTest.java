@@ -1,4 +1,8 @@
 import com.main.User;
+import com.main.exceptions.BalanceCannotBeNegativeException;
+import com.main.exceptions.BillingAmountCannotExceedBalanceException;
+import com.main.exceptions.CannotBillWithNoChargeException;
+import com.main.exceptions.DepositCannotBeNegativeException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -21,7 +25,7 @@ public class UserTest {
         userTest.setBalance(200);
         assertEquals("New name", userTest.getName());
         assertEquals(200, userTest.getBalance());
-        assertThrows(IllegalArgumentException.class, () ->
+        assertThrows(BalanceCannotBeNegativeException.class, () ->
                 userTest.setBalance(-10));
     }
 
@@ -42,21 +46,21 @@ public class UserTest {
     @Test
      void TestUserBillingWithInsufficientFunds() {
         User userTest = new User("Test", 100);
-        assertThrows(IllegalArgumentException.class, ()->
+        assertThrows(BillingAmountCannotExceedBalanceException.class, ()->
                 userTest.billAmount(130));
     }
 
     @Test
     void TestUserBillingWithNegativeAmount() {
         User userTest = new User("Test", 100);
-        assertThrows(IllegalArgumentException.class, ()->
+        assertThrows(CannotBillWithNoChargeException.class, ()->
                 userTest.billAmount(-10));
     }
 
     @Test
     void TestUserDepositWithNegativeAmount() {
         User userTest = new User("Test", 100);
-        assertThrows(IllegalArgumentException.class, ()->
+        assertThrows(DepositCannotBeNegativeException.class, ()->
                 userTest.deposit(-10));
     }
 

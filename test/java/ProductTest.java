@@ -1,15 +1,19 @@
 import com.main.Beverages;
+import com.main.Cutlery;
+import com.main.Edibles;
+import com.main.Product;
 import com.main.Product.Category;
+import com.main.exceptions.StockCannotBeNegativeException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ProductTest {
+    Beverages beverageTest = new Beverages("Water", 2, 10);
 
     @Test
     void TestIsInStock() {
-        Beverages beverageTest = new Beverages("Water", 2, 10);
         assertEquals(true, beverageTest.isInStock());
 
         Beverages beverageTest1 = new Beverages("Water", 0, 10);
@@ -18,15 +22,26 @@ public class ProductTest {
 
     @Test
     void TestSetStockLeftWithNegativeValue() {
-        Beverages beverageTest = new Beverages("Water", 2, 10);
-        assertThrows(IllegalArgumentException.class, ()->
+        assertThrows(StockCannotBeNegativeException.class, ()->
                 beverageTest.setStockLeft(-3));
     }
 
     @Test
     void TestSetStockLeft() {
-        Beverages beverageTest = new Beverages("Water", 2, 10);
         beverageTest.setStockLeft(10);
         assertEquals(10, beverageTest.getStockLeft());
     }
+
+    @Test
+    void TestRemoveOneStock() {
+        beverageTest.removeOneStock();
+        assertEquals(1, beverageTest.getStockLeft());
+    }
+
+    @Test
+    void TestAddOneStock() {
+        beverageTest.addOneStock();
+        assertEquals(3, beverageTest.getStockLeft());
+    }
+
 }
