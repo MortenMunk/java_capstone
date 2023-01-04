@@ -5,117 +5,86 @@ import com.main.exceptions.ProductNotFoundException;
 import com.main.exceptions.ProductNotInStockException;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-
-import static com.main.Product.products;
 
 public class ShoppingCart {
-    public static ArrayList<ShoppingCart> cartItems = new ArrayList<>();
 
-    private int cartID;
-    private String name;
-    private int amount;
-    private double price;
+    private Shop shop;
+    public ArrayList<CartItem> cartItems = new ArrayList<>();
 
-    public int getCartID() {
-        return cartID;
+    public ShoppingCart() {
     }
 
-
-    public String getName() {
-        return name;
-    }
-
-
-    public int getAmount() {
-        return amount;
-    }
-
-
-    public double getPrice() {
-        return price;
-    }
-
-
-    public ShoppingCart(int cartID, String name, int amount, double price) {
-        this.cartID = cartID;
-        this.name = name;
-        this.amount = amount;
-        this.price = price;
-        cartItems.add(this);
-    }
-
-    public static boolean IsItemAlreadyInCart(int idInput) {
-        for (ShoppingCart cartItem : cartItems) {
-            if (idInput == cartItem.getCartID()) {
+    public boolean IsItemAlreadyInCart(int idInput) {
+        for (CartItem cartItem : cartItems) {
+            if (idInput == cartItem.getProduct().getId()) {
                 return true;
             }
         }
         return false;
     }
 
-    public static void displayProductsInCart() {
-        System.out.println();
-        System.out.println("--- YOUR SHOPPING CART ---");
-        Iterator<ShoppingCart> iterator = cartItems.iterator();
-        while (iterator.hasNext()) {
-            ShoppingCart cartItem = iterator.next();
-            if (cartItem.amount < 1) {
-                iterator.remove();
-            } else {
-                System.out.println("#" + cartItem.cartID + ". " + cartItem.name + " --- Amount: " + cartItem.amount + " --- Price pr. item: " + cartItem.price + " DKK" + " --- Total: " + cartItem.amount * cartItem.price + " DKK");
-            }
-        }
+    public void setShop(Shop shop) {
+        this.shop = shop;
     }
 
-    public static void addToCart(int idToAdd) {
-        for (Product product : products) {
-            if (product.getId() == idToAdd && !IsItemAlreadyInCart(idToAdd)) {
-                if(product.isInStock()) {
-                    new ShoppingCart(product.getId(), product.getName(), 1, product.getPrice());
-                    product.removeOneStock();
+    public ArrayList<CartItem> getCartItems() {
+        return cartItems;
+    }
+
+    public void addToCart(int idToAdd) {
+        for (CartItem item : shop.getItems()) {
+            if (item.getProduct().getId() == idToAdd && !IsItemAlreadyInCart(idToAdd)) {
+                if(shop.getItems().get(shop.getProducts().indexOf(item.getProduct())).getAmount() > 0) {
+                    CartItem newCartItem = new CartItem(item.getProduct(), 1);
+                    cartItems.add(newCartItem);
+                    item.removeAmount(1);
                     return;
-                } else if(!product.isInStock()) {
+                } else {
                     throw new ProductNotInStockException(idToAdd);
                 }
-            } else if (product.getId() == idToAdd && IsItemAlreadyInCart(idToAdd)) {
-                for (ShoppingCart cartItem : cartItems) {
-                    if (cartItem.getCartID() == product.getId() && product.isInStock()) {
-                        product.removeOneStock();
-                        cartItem.amount += 1;
-                        return;
-                    } else if (cartItem.getCartID() == product.getId() && !product.isInStock()) {
-                        throw new ProductNotInStockException(idToAdd);
-                    }
+            } else if (item.getProduct().getId() == idToAdd) {
+                if(shop.getItems().get(shop.getProducts().indexOf(item.getProduct())).getAmount() > 0) {
+                    this.getCartItems().get(this.getProducts().indexOf(item.getProduct())).addAmount(1);
+                    item.removeAmount(1);
+                    return;
+                } else {
+                    throw new ProductNotInStockException(idToAdd);
                 }
             }
         }
         throw new ProductNotFoundException(idToAdd);
     }
 
-    public static void removeFromCart(int idToAdd) {
-        for (Product product : products) {
-            if (product.getId() == idToAdd && IsItemAlreadyInCart(idToAdd)) {
-                for (ShoppingCart cartItem : cartItems) {
-                    if (cartItem.getCartID() == idToAdd && cartItem.amount < 1) {
-                        throw new CannotRemoveFromCartWhenAmountZero(idToAdd);
-                    } else if (cartItem.getCartID() == idToAdd) {
-                        cartItem.amount -= 1;
-                        product.addOneStock();
-                        return;
-                    }
+    public void removeFromCart(int idToAdd) {
+        for (CartItem item : shop.getItems()) {
+            if (item.getProduct().getId() == idToAdd && IsItemAlreadyInCart(idToAdd)) {
+                if (shop.getItems().get(shop.getProducts().indexOf(item.getProduct())).getAmount() == 1) {
+                    this.getCartItems().remove(this.getProducts().indexOf(item.getProduct()));
+                    item.addAmount(1);
+                } else if (item.getProduct().getId() == idToAdd) {
+                    this.getCartItems().get(this.getProducts().indexOf(item.getProduct())).removeAmount(1);
+                    item.addAmount(1);
+                    return;
                 }
             }
         }
         throw new ProductNotFoundException(idToAdd);
     }
 
-    public static double getTotalPrice() {
+    public double getTotalPrice() {
         double totalPrice = 0;
-        for (ShoppingCart cartItem : cartItems) {
-            totalPrice += cartItem.price * cartItem.amount;
+        for (CartItem cartItem : cartItems) {
+            totalPrice += cartItem.getProduct().getPrice() * cartItem.getAmount();
         }
         return totalPrice;
+    }
+
+    public ArrayList<Product> getProducts() {
+        ArrayList<Product> list = new ArrayList<>();
+        for (CartItem item : this.getCartItems()) {
+            list.add(item.getProduct());
+        }
+        return list;
     }
 }
 

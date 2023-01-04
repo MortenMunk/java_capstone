@@ -1,7 +1,7 @@
 package com.main;
 
 public class Cutlery extends Product {
-    public Cutlery(String name, int stockLeft, double price) {
-        super(name, stockLeft, price, Category.CUTLERY);
+    public Cutlery(int id ,String name, double price) {
+        super(id ,name, price, Category.CUTLERY);
     }
 }

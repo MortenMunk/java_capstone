@@ -3,44 +3,88 @@ package psvm;
 import com.main.*;
 import com.main.exceptions.*;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
+
+    public static void displayProductsInCart(ArrayList<CartItem> itemList) {
+        System.out.println();
+        System.out.println("--- YOUR SHOPPING CART ---");
+        for (CartItem item : itemList) {
+            if (item.getAmount() < 1) {
+                itemList.remove(item);
+            } else {
+                System.out.println("#" + item.getProduct().getId() + ". " + item.getProduct().getName() + " --- Amount: " + item.getAmount() + " --- Price pr. item: " + item.getProduct().getPrice() + " DKK" + " --- Total: " + item.getAmount() * item.getProduct().getPrice() + " DKK");
+            }
+        }
+    }
+
+    public static void DisplayProducts(ArrayList<CartItem> itemList) {
+        System.out.println("--------------------");
+        for (CartItem item : itemList) {
+            if (item.getAmount() > 0) {
+                System.out.print("#" + item.getProduct().getId() + ". ");
+                System.out.print(item.getProduct().getName() + " --- ");
+                System.out.print("Price: " + item.getProduct().getPrice() + " DKK --- ");
+                System.out.print("Stock: " + item.getAmount() + " --- ");
+                System.out.print("Category: " + item.getProduct().getCategory());
+                System.out.println();
+            } else {
+                System.out.print("#" + item.getProduct().getId() + ". " + item.getProduct().getName() + " ---  OUT OF STOCK! ---");
+                System.out.println();
+            }
+        }
+        System.out.println("--------------------");
+    }
     public static void main(String[] args) {
+
+        ShoppingCart shoppingCart = new ShoppingCart();
+        Shop shop = new Shop();
+        shoppingCart.setShop(shop);
 
         boolean notDoneShopping = true;
         User user = new User("Morten", 0);
         // BEVERAGE LIST
-        Beverages cola = new Beverages("Cola", 2, 15.99);
-        Beverages fanta = new Beverages("Fanta", 8, 13.99);
-        Beverages sprite = new Beverages("Sprite", 20, 15.99);
-        Beverages sevenUp = new Beverages("7-Up", 0, 10.99);
+        Beverages cola = new Beverages(1 ,"Cola", 15.99);
+        shop.addProduct(2, cola);
+        Beverages fanta = new Beverages(2, "Fanta", 13.99);
+        shop.addProduct(5, fanta);
+        Beverages sprite = new Beverages(3,"Sprite", 15.99);
+        shop.addProduct(3, sprite);
+        Beverages sevenUp = new Beverages(4,"7-Up", 10.99);
+        shop.addProduct(10, sevenUp);
 
         // CUTLERY LIST
-        Cutlery spoon = new Cutlery("Spoon", 10, 0.99);
-        Cutlery fork = new Cutlery("Fork", 16, 0.99);
-        Cutlery napkin = new Cutlery("Napkin", 59, 0);
+        Cutlery spoon = new Cutlery(5,"Spoon", 0.99);
+        shop.addProduct(2, spoon);
+        Cutlery fork = new Cutlery(6,"Fork", 0.99);
+        shop.addProduct(3, fork);
+        Cutlery napkin = new Cutlery(7,"Napkin", 0);
+        shop.addProduct(0, napkin);
 
         // EDIBLE LIST
-        Edibles pizza = new Edibles("Pizza", 5, 18);
-        Edibles sandwich = new Edibles("Sandwich", 10, 30);
-        Edibles salad = new Edibles("Salad", 20, 28);
+        Edibles pizza = new Edibles(8,"Pizza", 18.99);
+        shop.addProduct(0, pizza);
+        Edibles sandwich = new Edibles(9,"Sandwich", 30.99);
+        shop.addProduct(10, sandwich);
+        Edibles salad = new Edibles(10,"Salad", 28.99);
+        shop.addProduct(5, salad);
 
-        Product.SetProductsId();
-        Product.DisplayProducts();
-        System.out.println("To deposit money, type: d");
-        System.out.println("To add product to your cart, type: a");
-        System.out.println("To remove product from your cart, type: r");
-        System.out.println("To complete purchase, type: p");
-        System.out.println("To cancel order, type: c");
+
         while(notDoneShopping) {
-            ShoppingCart.displayProductsInCart();
+            DisplayProducts(shop.getItems());
+            System.out.println("To deposit money, type: d");
+            System.out.println("To add product to your cart, type: a");
+            System.out.println("To remove product from your cart, type: r");
+            System.out.println("To complete purchase, type: p");
+            System.out.println("To cancel order, type: c");
+            displayProductsInCart(shoppingCart.getCartItems());
             System.out.println("Balance: " + user.getBalance() + " DKK");
             System.out.println("--------------------");
             Scanner firstInput = new Scanner(System.in);
 
             String action = firstInput.nextLine();
-            System.out.println(user.getBalance());
             switch (action) {
                 case "d" -> {
                     System.out.println("Please input the amount you want to deposit");
@@ -59,7 +103,7 @@ public class Main {
                     System.out.println("Please input the ID of the product, you want to add");
                     action = firstInput.nextLine();
                     try {
-                        ShoppingCart.addToCart(Integer.parseInt(action));
+                        shoppingCart.addToCart(Integer.parseInt(action));
                     } catch (ProductNotFoundException e) {
                         System.out.println();
                         System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
@@ -78,7 +122,7 @@ public class Main {
                     System.out.println("Please input the ID of the product, you want to remove");
                     action = firstInput.nextLine();
                     try {
-                        ShoppingCart.removeFromCart(Integer.parseInt(action));
+                        shoppingCart.removeFromCart(Integer.parseInt(action));
                     } catch (CannotRemoveFromCartWhenAmountZero e) {
                         System.out.println();
                         System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
@@ -96,8 +140,8 @@ public class Main {
                 case "p" -> {
                     System.out.println("Purchase completed!");
                     try {
-                        user.billAmount(ShoppingCart.getTotalPrice());
-                        System.out.println("Total billing amount: " + ShoppingCart.getTotalPrice() + " DKK");
+                        user.billAmount(shoppingCart.getTotalPrice());
+                        System.out.println("Total billing amount: " + shoppingCart.getTotalPrice() + " DKK");
                         notDoneShopping = false;
                     } catch (BalanceCannotBeNegativeException e) {
                         System.out.println();

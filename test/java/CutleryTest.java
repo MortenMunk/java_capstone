@@ -5,13 +5,11 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CutleryTest {
-    Cutlery cutleryTest = new Cutlery("Plastic spoon", 5, 4);
+    Cutlery cutleryTest = new Cutlery(1, "Plastic spoon", 4);
     @Test
     void TestCutleryConstructor() {
         assertEquals("Plastic spoon", cutleryTest.getName());
-        assertEquals(5, cutleryTest.getStockLeft());
         assertEquals(4, cutleryTest.getPrice());
-        assertEquals(true, cutleryTest.isInStock());
         assertEquals(Category.CUTLERY, cutleryTest.getCategory());
     }
 
