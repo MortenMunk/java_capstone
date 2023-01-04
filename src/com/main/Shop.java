@@ -8,29 +8,6 @@ public class Shop {
 
     public ArrayList<CartItem> items = new ArrayList<>();
 
-    /*public int getStockLeft() {
-        return stockLeft;
-    }
-
-    public void setStockLeft(int stockLeft) {
-        if (stockLeft >= 0) {
-            this.stockLeft = stockLeft;
-        } else {
-            throw new StockCannotBeNegativeException();
-        }
-    }
-
-    public boolean isInStock() {
-        return this.stockLeft > 0;
-    }
-
-    public void removeOneStock() {
-        stockLeft -= 1;
-    }
-
-    public void addOneStock() {
-        stockLeft += 1;
-    }*/
 
     public ArrayList<CartItem> getItems() {
         return items;

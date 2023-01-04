@@ -1,8 +1,5 @@
 import com.main.User;
-import com.main.exceptions.BalanceCannotBeNegativeException;
-import com.main.exceptions.BillingAmountCannotExceedBalanceException;
-import com.main.exceptions.CannotBillWithNoChargeException;
-import com.main.exceptions.DepositCannotBeNegativeException;
+import com.main.exceptions.*;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -10,17 +7,16 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 public class UserTest {
+    User userTest = new User("Test", 1337);
 
     @Test
     void TestUserGetter(){
-        User userTest = new User("Test", 1337);
         assertEquals("Test", userTest.getName());
         assertEquals(1337, userTest.getBalance());
     }
 
     @Test
     void TestUserSetter(){
-        User userTest = new User("Test", 1337);
         userTest.setName("New name");
         userTest.setBalance(200);
         assertEquals("New name", userTest.getName());
@@ -31,43 +27,44 @@ public class UserTest {
 
     @Test
     void TestUserDeposit() {
-        User userTest = new User("Test", 100);
         userTest.deposit(100);
-        assertEquals(200, userTest.getBalance());
+        assertEquals(1437, userTest.getBalance());
     }
 
     @Test
     void TestUserBillAmount() {
-        User userTest = new User("Test", 100);
         userTest.billAmount(50);
-        assertEquals(50, userTest.getBalance());
+        assertEquals(1287, userTest.getBalance());
     }
 
     @Test
      void TestUserBillingWithInsufficientFunds() {
-        User userTest = new User("Test", 100);
         assertThrows(BillingAmountCannotExceedBalanceException.class, ()->
-                userTest.billAmount(130));
+                userTest.billAmount(1338));
     }
 
     @Test
     void TestUserBillingWithNegativeAmount() {
-        User userTest = new User("Test", 100);
         assertThrows(CannotBillWithNoChargeException.class, ()->
                 userTest.billAmount(-10));
     }
 
     @Test
     void TestUserDepositWithNegativeAmount() {
-        User userTest = new User("Test", 100);
         assertThrows(DepositCannotBeNegativeException.class, ()->
                 userTest.deposit(-10));
     }
 
     @Test
     void TestUserConstructorOptionalBalance() {
-        User userTest = new User("Test");
-        assertEquals("Test", userTest.getName());
-        assertEquals(0.0, userTest.getBalance());
+        User userTest1 = new User("Test");
+        assertEquals("Test", userTest1.getName());
+        assertEquals(0.0, userTest1.getBalance());
+    }
+
+    @Test
+    void TestInvalidActionInputException() {
+        assertThrows(InvalidActionInputException.class, ()->
+                userTest.invalidInput());
     }
 }
