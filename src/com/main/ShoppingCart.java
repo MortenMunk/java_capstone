@@ -79,7 +79,7 @@ public class ShoppingCart {
                 for (ShoppingCart cartItem : cartItems) {
                     if (cartItem.cartID == idToAdd && cartItem.amount < 1) {
                         throw new CannotRemoveFromCartWhenAmountZero(idToAdd);
-                    } else if (cartItem.cartID == idToAdd && cartItem.amount > 0) {
+                    } else if (cartItem.cartID == idToAdd) {
                         cartItem.amount -= 1;
                         product.addOneStock();
                         return;

@@ -54,11 +54,7 @@ public abstract class Product {
     }
 
     public boolean isInStock() {
-        if (this.stockLeft <= 0) {
-            return false;
-        } else {
-            return true;
-        }
+        return this.stockLeft > 0;
     }
 
     public Category getCategory() {
@@ -90,10 +86,10 @@ public abstract class Product {
                 System.out.print("Price: " + product.price + " DKK --- ");
                 System.out.print("Stock: " + product.stockLeft + " --- ");
                 System.out.print("Category: " + product.category);
-                System.out.println("");
+                System.out.println();
             } else {
                 System.out.print("#" + product.id + ". " + product.name + " ---  OUT OF STOCK! ---");
-                System.out.println("");
+                System.out.println();
             }
         }
         System.out.println("--------------------");
