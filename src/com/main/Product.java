@@ -1,8 +1,13 @@
+//      ###################################
+//      ||                               ||
+//      ||     Morten Munk Andersen      ||
+//      ||    Mortan21@student.aau.dk    ||
+//      ||     2022 CAPSTONE PROJECT     ||
+//      ||                               ||
+//      ###################################
+
 package com.main;
 
-import com.main.exceptions.StockCannotBeNegativeException;
-
-import java.util.ArrayList;
 
 public abstract class Product extends Shop {
     private final Category category;

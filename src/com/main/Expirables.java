@@ -1,6 +1,12 @@
-package com.main;
+//      ###################################
+//      ||                               ||
+//      ||     Morten Munk Andersen      ||
+//      ||    Mortan21@student.aau.dk    ||
+//      ||     2022 CAPSTONE PROJECT     ||
+//      ||                               ||
+//      ###################################
 
-import java.util.Date;
+package com.main;
 
 public abstract class Expirables extends Product {
 

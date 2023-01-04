@@ -1,3 +1,11 @@
+//      ###################################
+//      ||                               ||
+//      ||     Morten Munk Andersen      ||
+//      ||    Mortan21@student.aau.dk    ||
+//      ||     2022 CAPSTONE PROJECT     ||
+//      ||                               ||
+//      ###################################
+
 import com.main.*;
 import com.main.exceptions.BillingAmountCannotExceedBalanceException;
 import com.main.exceptions.CannotRemoveFromCartWhenAmountZero;
