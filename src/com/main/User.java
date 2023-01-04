@@ -1,9 +1,6 @@
 package com.main;
 
-import com.main.exceptions.BalanceCannotBeNegativeException;
-import com.main.exceptions.BillingAmountCannotExceedBalanceException;
-import com.main.exceptions.CannotBillWithNoChargeException;
-import com.main.exceptions.DepositCannotBeNegativeException;
+import com.main.exceptions.*;
 
 public class User implements Transaction{
     private Double balance;
@@ -56,5 +53,9 @@ public class User implements Transaction{
             throw new BillingAmountCannotExceedBalanceException(balance, amount);
         }
         return balance -= amount;
+    }
+
+    public void invalidInput() {
+        throw new InvalidActionInputException();
     }
 }

@@ -27,17 +27,17 @@ public class Main {
         Edibles salad = new Edibles("Salad", 20, 28);
 
         Product.SetProductsId();
+        Product.DisplayProducts();
+        System.out.println("To deposit money, type: d");
+        System.out.println("To add product to your cart, type: a");
+        System.out.println("To remove product from your cart, type: r");
+        System.out.println("To complete purchase, type: p");
+        System.out.println("To cancel order, type: c");
         while(notDoneShopping) {
-            Product.DisplayProducts();
             ShoppingCart.displayProductsInCart();
             System.out.println("Balance: " + user.getBalance() + " DKK");
             System.out.println("--------------------");
             Scanner firstInput = new Scanner(System.in);
-            System.out.println("To deposit money, type: d");
-            System.out.println("To add product to your cart, type: a");
-            System.out.println("To remove product from your cart, type: r");
-            System.out.println("To complete purchase, type: p");
-            System.out.println("To cancel order, type: c");
 
             String action = firstInput.nextLine();
             System.out.println(user.getBalance());
@@ -129,7 +129,17 @@ public class Main {
                     System.out.println("Order cancelled!");
                     notDoneShopping = false;
                 }
-                default -> System.out.println("Incorrect input, try again.");
+                default -> {
+                    try {
+                        user.invalidInput();
+                    } catch (InvalidActionInputException e) {
+                        System.out.println();
+                        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                        System.out.println("Invalid input! Please use only suggested inputs!");
+                        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                        System.out.println();
+                    }
+                }
             }
         }
     }
