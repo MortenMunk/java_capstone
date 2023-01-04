@@ -15,4 +15,5 @@ public class ShoppingCartTest {
         assertEquals(2, shoppingCartTest.getAmount());
         assertEquals(10, shoppingCartTest.getPrice());
     }
+
 }

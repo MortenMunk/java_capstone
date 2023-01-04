@@ -21,33 +21,21 @@ public class ShoppingCart {
         return cartID;
     }
 
-    public void setCartID(int cartID) {
-        this.cartID = cartID;
-    }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public int getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
 
     public double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
-    }
 
     public ShoppingCart(int cartID, String name, int amount, double price) {
         this.cartID = cartID;
@@ -59,7 +47,7 @@ public class ShoppingCart {
 
     public static boolean IsItemAlreadyInCart(int idInput) {
         for (ShoppingCart cartItem : cartItems) {
-            if (idInput == cartItem.cartID) {
+            if (idInput == cartItem.getCartID()) {
                 return true;
             }
         }
@@ -92,11 +80,11 @@ public class ShoppingCart {
                 }
             } else if (product.getId() == idToAdd && IsItemAlreadyInCart(idToAdd)) {
                 for (ShoppingCart cartItem : cartItems) {
-                    if (cartItem.cartID == product.getId() && product.isInStock()) {
+                    if (cartItem.getCartID() == product.getId() && product.isInStock()) {
                         product.removeOneStock();
                         cartItem.amount += 1;
                         return;
-                    } else if (cartItem.cartID == product.getId() && !product.isInStock()) {
+                    } else if (cartItem.getCartID() == product.getId() && !product.isInStock()) {
                         throw new ProductNotInStockException(idToAdd);
                     }
                 }
@@ -109,9 +97,9 @@ public class ShoppingCart {
         for (Product product : products) {
             if (product.getId() == idToAdd && IsItemAlreadyInCart(idToAdd)) {
                 for (ShoppingCart cartItem : cartItems) {
-                    if (cartItem.cartID == idToAdd && cartItem.amount < 1) {
+                    if (cartItem.getCartID() == idToAdd && cartItem.amount < 1) {
                         throw new CannotRemoveFromCartWhenAmountZero(idToAdd);
-                    } else if (cartItem.cartID == idToAdd) {
+                    } else if (cartItem.getCartID() == idToAdd) {
                         cartItem.amount -= 1;
                         product.addOneStock();
                         return;
