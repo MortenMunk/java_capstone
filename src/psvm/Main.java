@@ -86,10 +86,11 @@ public class Main {
             displayProductsInCart(shoppingCart.getCartItems());
             System.out.println("Balance: " + user.getBalance() + " DKK");
             System.out.println("--------------------");
-            Scanner firstInput = new Scanner(System.in);
 
+            Scanner firstInput = new Scanner(System.in);
             String action = firstInput.nextLine();
             switch (action) {
+                // Press d to deposit money
                 case "d" -> {
                     System.out.println("Please input the amount you want to deposit");
                     action = firstInput.nextLine();
@@ -103,6 +104,7 @@ public class Main {
                         System.out.println();
                     }
                 }
+                // Press a to add an item to cart
                 case "a" -> {
                     System.out.println("Please input the ID of the product, you want to add");
                     action = firstInput.nextLine();
@@ -122,6 +124,7 @@ public class Main {
                         System.out.println();
                     }
                 }
+                // Press r to remove item from cart
                 case "r" -> {
                     System.out.println("Please input the ID of the product, you want to remove");
                     action = firstInput.nextLine();
@@ -141,12 +144,13 @@ public class Main {
                         System.out.println();
                     }
                 }
+                // Press p to complete purchase
                 case "p" -> {
                     System.out.println("Purchase completed!");
                     try {
                         user.billAmount(shoppingCart.getTotalPrice());
                         System.out.println("Total billing amount: " + shoppingCart.getTotalPrice() + " DKK");
-                        notDoneShopping = false;
+                        notDoneShopping = false; // end the program after the transaction is complete
                     } catch (BalanceCannotBeNegativeException e) {
                         System.out.println();
                         System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
@@ -173,13 +177,14 @@ public class Main {
                         System.out.println();
                     }
                 }
+                // Press c to cancel order
                 case "c" -> {
                     System.out.println("Order cancelled!");
-                    notDoneShopping = false;
+                    notDoneShopping = false; // end the program
                 }
                 default -> {
                     try {
-                        user.invalidInput();
+                        user.invalidInput(); // throw an exception, but continue the program
                     } catch (InvalidActionInputException e) {
                         System.out.println();
                         System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");

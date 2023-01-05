@@ -30,6 +30,7 @@ public class ShoppingCart {
         return false;
     }
 
+    // Associate the shop with the shopping cart
     public void setShop(Shop shop) {
         this.shop = shop;
     }
@@ -64,11 +65,13 @@ public class ShoppingCart {
 
     public void removeFromCart(int idToAdd) {
         for (CartItem item : shop.getItems()) {
+            // if product exists and is already in cart
             if (item.getProduct().getId() == idToAdd && IsItemAlreadyInCart(idToAdd)) {
+                // if product stock is 1
                 if (shop.getItems().get(shop.getProducts().indexOf(item.getProduct())).getAmount() == 1) {
                     this.getCartItems().remove(this.getProducts().indexOf(item.getProduct()));
                     item.addAmount(1);
-                } else if (item.getProduct().getId() == idToAdd) {
+                } else {
                     this.getCartItems().get(this.getProducts().indexOf(item.getProduct())).removeAmount(1);
                     item.addAmount(1);
                     return;

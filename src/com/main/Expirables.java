@@ -13,4 +13,6 @@ public abstract class Expirables extends Product {
     public Expirables(int id ,String name, double price, Category category) {
         super(id, name, price, category);
     }
+
+    // TODO: expiration implementation for edibles and beverages.
 }
