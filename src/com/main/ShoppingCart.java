@@ -41,7 +41,9 @@ public class ShoppingCart {
 
     public void addToCart(int idToAdd) {
         for (CartItem item : shop.getItems()) {
+            // if product exists and is already in cart
             if (item.getProduct().getId() == idToAdd && !IsItemAlreadyInCart(idToAdd)) {
+                // if product stock is more than 0
                 if(shop.getItems().get(shop.getProducts().indexOf(item.getProduct())).getAmount() > 0) {
                     CartItem newCartItem = new CartItem(item.getProduct(), 1);
                     cartItems.add(newCartItem);
