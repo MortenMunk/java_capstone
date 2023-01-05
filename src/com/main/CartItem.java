@@ -10,7 +10,7 @@ package com.main;
 
 import com.main.exceptions.CannotRemoveFromCartWhenAmountZero;
 
-public class CartItem {
+public class CartItem extends ShoppingCart {
     private Product product;
 
     private int amount;

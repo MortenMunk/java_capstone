@@ -15,6 +15,37 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
+    // Check if the input can be parsed to double
+    public static double CheckDouble(String input) {
+        double output;
+        try {
+            output = Double.parseDouble(input);
+        } catch (NumberFormatException e) {
+            System.out.println();
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            System.out.println(input + " is not a double. Please only input doubles, after the action");
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            System.out.println();
+            return 0;
+        }
+        return output;
+    }
+
+    // Checks if the input can be parsed to integer
+    public static int CheckInt(String input) {
+        int output;
+        try {
+            output = Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            System.out.println();
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            System.out.println(input + " is not an integer. Please only input integers, after the action");
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            System.out.println();
+            return -1;
+        }
+        return output;
+    }
 
     public static void displayProductsInCart(ArrayList<CartItem> itemList) {
         System.out.println();
@@ -95,7 +126,7 @@ public class Main {
                     System.out.println("Please input the amount you want to deposit");
                     action = firstInput.nextLine();
                     try {
-                        user.deposit(Double.parseDouble(action));
+                        user.deposit(CheckDouble(action));
                     } catch (DepositCannotBeNegativeException e) {
                         System.out.println();
                         System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
@@ -109,7 +140,7 @@ public class Main {
                     System.out.println("Please input the ID of the product, you want to add");
                     action = firstInput.nextLine();
                     try {
-                        shoppingCart.addToCart(Integer.parseInt(action));
+                        shoppingCart.addToCart(CheckInt(action));
                     } catch (ProductNotFoundException e) {
                         System.out.println();
                         System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
@@ -129,7 +160,7 @@ public class Main {
                     System.out.println("Please input the ID of the product, you want to remove");
                     action = firstInput.nextLine();
                     try {
-                        shoppingCart.removeFromCart(Integer.parseInt(action));
+                        shoppingCart.removeFromCart(CheckInt(action));
                     } catch (CannotRemoveFromCartWhenAmountZero e) {
                         System.out.println();
                         System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
